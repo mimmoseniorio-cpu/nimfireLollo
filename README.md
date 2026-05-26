@@ -1,10 +1,12 @@
-# NimFire Mimmo vs Lorenzo v2
+# NimFire Mimmo vs Lorenzo Clean Photos
+
+Versione ricostruita con logica pulita e foto incorporate direttamente nell'HTML.
 
 Correzioni:
-- aggiunto pulsante "Conferma e inizia" nel menu
-- scegliendo "2 giocatori locale" puoi avviare chiaramente la partita Mimmo vs Lorenzo
-- rimosso effetto sticky del titolo Menu che rimaneva in sovraimpressione
-- mantiene foto vincitore Mimmo/Lorenzo
+- Mimmo vs Lorenzo funziona senza CPU
+- foto vincitore incorporate in base64
+- l'HTML singolo mostra le foto anche senza file esterni
+- l'APK include comunque anche i file immagine
 
 Artifact:
-NimFire-Mimmo-Lorenzo-debug-apk
+NimFire-Mimmo-Lorenzo-Clean-debug-apk
