@@ -1,0 +1,11 @@
+{
+  "appId": "com.nimfire.mimmolorenzo",
+  "appName": "NimFire",
+  "webDir": "public",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "backgroundColor": "#03040c"
+    }
+  }
+}

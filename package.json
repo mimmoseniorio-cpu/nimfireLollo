@@ -1,0 +1,16 @@
+{
+  "name": "nimfire",
+  "version": "1.1.4",
+  "private": true,
+  "description": "NimFire Mimmo vs Lorenzo",
+  "scripts": {
+    "build": "node -e \"console.log('NimFire Mimmo vs Lorenzo ready')\""
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest"
+  }
+}

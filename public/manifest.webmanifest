@@ -1,0 +1,18 @@
+{
+  "name": "NimFire",
+  "short_name": "NimFire",
+  "description": "NimFire Mimmo vs Lorenzo",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#03040c",
+  "theme_color": "#090617",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
