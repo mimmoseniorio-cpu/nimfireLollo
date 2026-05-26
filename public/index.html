@@ -3,262 +3,352 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
-  <title>NimFire Mimmo vs Lorenzo Clean Photos</title>
+  <title>NimFire Mimmo vs Lorenzo Polished</title>
   <meta name="theme-color" content="#080513" />
   <style>
     :root {
       --bg:#070612;
-      --card:rgba(255,255,255,.075);
-      --card2:rgba(255,255,255,.105);
-      --line:rgba(255,255,255,.13);
+      --panel:rgba(255,255,255,.075);
+      --panel2:rgba(255,255,255,.105);
+      --line:rgba(255,255,255,.14);
       --text:#fff;
       --muted:rgba(255,255,255,.68);
-      --accent:#f97316;
+      --orange:#f97316;
+      --red:#ef4444;
       --purple:#7c3aed;
-      --danger:#ef4444;
       --safe-top:env(safe-area-inset-top,0px);
       --safe-bottom:env(safe-area-inset-bottom,0px);
+      --bottom-h:132px;
+      --top-h:92px;
     }
 
     * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
+    html,body { width:100%; height:100%; }
     body {
       margin:0;
       min-height:100dvh;
       overflow:hidden;
+      display:flex;
+      justify-content:center;
       color:var(--text);
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
-        radial-gradient(circle at 20% 5%, rgba(124,58,237,.28), transparent 34%),
-        radial-gradient(circle at 88% 10%, rgba(249,115,22,.24), transparent 34%),
-        linear-gradient(180deg,#070513,#0b0817 50%,#03030b);
+        radial-gradient(circle at 20% 0%, rgba(124,58,237,.34), transparent 34%),
+        radial-gradient(circle at 90% 5%, rgba(249,115,22,.24), transparent 32%),
+        linear-gradient(180deg,#05040c,#0a0717 56%,#03030a);
     }
 
-    button,input,select { font:inherit; }
+    button,select { font:inherit; }
+
+    .phone {
+      width:min(100vw, 760px);
+      height:100dvh;
+      position:relative;
+      overflow:hidden;
+      margin:0 auto;
+    }
 
     .app {
-      height:100dvh;
-      padding:calc(10px + var(--safe-top)) 10px calc(86px + var(--safe-bottom));
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      height:100%;
+      padding:calc(9px + var(--safe-top)) 10px calc(var(--bottom-h) + var(--safe-bottom) + 8px);
+      display:grid;
+      grid-template-rows:auto 1fr;
+      gap:8px;
       overflow:hidden;
     }
 
     .topbar {
-      flex:0 0 auto;
+      min-height:var(--top-h);
       border:1px solid var(--line);
-      background:linear-gradient(135deg,rgba(124,58,237,.22),rgba(249,115,22,.13));
+      background:linear-gradient(135deg,rgba(124,58,237,.28),rgba(249,115,22,.16));
       border-radius:28px;
-      padding:10px 10px 10px 14px;
+      padding:10px;
       display:grid;
       grid-template-columns:1fr auto auto auto;
-      gap:10px;
+      gap:8px;
       align-items:center;
-      box-shadow:0 14px 42px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.09);
+      box-shadow:0 16px 44px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10);
     }
 
-    .brand-title { font-size:28px; font-weight:950; letter-spacing:-.04em; line-height:1; }
-    .brand-sub { color:var(--muted); font-size:14px; margin-top:4px; }
+    .brand-title {
+      font-size:clamp(29px,7.2vw,46px);
+      font-weight:950;
+      letter-spacing:-.055em;
+      line-height:.92;
+      text-shadow:0 2px 16px rgba(0,0,0,.18);
+    }
+
+    .brand-sub {
+      margin-top:5px;
+      color:var(--muted);
+      font-size:clamp(14px,3.7vw,22px);
+      line-height:1.05;
+    }
 
     .counter {
-      min-width:74px;
-      min-height:68px;
+      width:clamp(64px,16vw,88px);
+      height:clamp(64px,16vw,88px);
       display:grid;
       place-items:center;
       border-radius:22px;
-      background:rgba(4,5,17,.66);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
-      font-size:38px;
-      font-weight:900;
+      background:rgba(4,5,17,.72);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 26px rgba(0,0,0,.25);
+      font-size:clamp(34px,8.5vw,58px);
+      font-weight:950;
     }
 
     .icon-btn {
-      width:68px;
-      height:68px;
+      width:clamp(56px,14.5vw,78px);
+      height:clamp(56px,14.5vw,78px);
       border:1px solid rgba(255,255,255,.16);
-      border-radius:24px;
-      background:rgba(255,255,255,.08);
-      color:#fff;
-      font-size:30px;
-      font-weight:900;
+      border-radius:22px;
+      background:rgba(255,255,255,.085);
+      color:white;
+      font-size:clamp(28px,7vw,44px);
+      font-weight:950;
       cursor:pointer;
+      touch-action:manipulation;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
     }
 
     .board {
-      flex:1 1 auto;
       min-height:0;
       display:grid;
-      grid-template-rows:repeat(4,1fr);
+      grid-template-rows:repeat(4, minmax(0, 1fr));
       gap:8px;
       overflow:hidden;
     }
 
     .row-card {
       position:relative;
+      min-height:0;
       border:1px solid var(--line);
-      border-radius:26px;
-      background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 52% 78%,rgba(249,115,22,.09),transparent 36%),
+        linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
       overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px 14px 12px;
+      display:grid;
+      grid-template-rows:auto minmax(0,1fr);
+      padding:8px 10px 7px;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     .row-card.active {
-      border-color:rgba(251,191,36,.55);
+      border-color:rgba(251,191,36,.62);
       box-shadow:0 0 0 1px rgba(251,191,36,.18), inset 0 1px 0 rgba(255,255,255,.08);
     }
 
+    .row-head {
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      min-height:24px;
+      pointer-events:none;
+    }
+
     .row-title {
-      position:absolute;
-      left:14px;
-      top:12px;
       color:rgba(255,255,255,.78);
-      font-size:15px;
-      font-weight:900;
+      font-size:clamp(13px,3.35vw,18px);
+      font-weight:950;
       letter-spacing:.10em;
       text-transform:uppercase;
+      white-space:nowrap;
     }
 
     .row-count {
-      position:absolute;
-      right:12px;
-      top:10px;
-      padding:6px 12px;
+      padding:5px 10px;
       border-radius:999px;
       background:rgba(255,255,255,.10);
-      color:rgba(255,255,255,.80);
-      font-size:14px;
+      color:rgba(255,255,255,.82);
+      font-size:clamp(12px,3.2vw,17px);
+      white-space:nowrap;
     }
 
     .slots {
+      z-index:1;
+      min-height:0;
       height:100%;
+      width:100%;
+      max-width:580px;
+      margin:0 auto;
       display:flex;
       align-items:flex-end;
       justify-content:center;
-      gap:clamp(11px,4.2vw,28px);
-      width:100%;
-      max-width:660px;
+      gap:clamp(7px,2.35vw,16px);
+      padding:8px 2px 2px;
     }
 
     .slot {
-      width:42px;
-      height:96px;
-      display:grid;
-      place-items:end center;
+      width:clamp(31px,7.7vw,48px);
+      height:100%;
+      min-height:56px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-end;
       position:relative;
+      overflow:visible;
     }
 
     .match {
-      width:26px;
-      height:78px;
+      --h: min(68px, calc((100dvh - var(--safe-top) - var(--safe-bottom) - var(--top-h) - var(--bottom-h) - 62px) / 4 * .58));
+      width:clamp(18px,4.7vw,28px);
+      height:var(--h);
+      min-height:43px;
+      max-height:78px;
       border:0;
       padding:0;
-      position:relative;
       border-radius:999px;
-      background:
-        linear-gradient(90deg,#6f3f20,#e7c28f 34%,#ffdca3 54%,#b97742);
-      box-shadow:0 8px 18px rgba(0,0,0,.25), inset 3px 0 6px rgba(255,255,255,.26), inset -4px 0 7px rgba(75,38,14,.28);
+      position:relative;
       cursor:pointer;
+      touch-action:manipulation;
       transform-origin:50% 100%;
-      transition:transform .12s ease, filter .12s ease, opacity .18s ease;
+      transition:transform .14s ease, filter .14s ease;
+      background:
+        linear-gradient(90deg,#6f3f20 0%,#c4874c 22%,#ffdca3 48%,#d59a5e 70%,#693b1e 100%);
+      box-shadow:
+        0 8px 18px rgba(0,0,0,.27),
+        inset 3px 0 7px rgba(255,255,255,.28),
+        inset -4px 0 8px rgba(72,38,16,.30);
     }
 
     .match::before {
       content:"";
       position:absolute;
-      width:38px;
-      height:25px;
       left:50%;
-      top:-18px;
+      top:-17px;
+      width:calc(100% + 17px);
+      height:23px;
       transform:translateX(-50%);
       border-radius:50% 50% 42% 42%;
       background:linear-gradient(180deg,#fb7185,#991b1b);
-      box-shadow:0 4px 10px rgba(0,0,0,.22);
+      box-shadow:0 3px 9px rgba(0,0,0,.24);
     }
 
     .match::after {
       content:"";
       position:absolute;
       left:50%;
-      top:-60px;
-      width:34px;
-      height:56px;
+      top:-52px;
+      width:calc(100% + 12px);
+      height:52px;
+      min-height:34px;
       transform:translateX(-50%);
       background:
-        radial-gradient(circle at 50% 72%,#fff7ed 0 21%,#fde047 22% 44%,#f97316 45% 69%,#dc2626 70% 100%);
+        radial-gradient(circle at 50% 72%,#fff7ed 0 20%,#fde047 21% 43%,#f97316 44% 68%,#dc2626 69% 100%);
       clip-path:polygon(50% 0,72% 22%,92% 58%,71% 90%,50% 100%,28% 90%,8% 58%,28% 22%);
-      filter:drop-shadow(0 0 14px rgba(249,115,22,.68));
+      filter:drop-shadow(0 0 12px rgba(249,115,22,.72));
       animation:flicker .72s infinite alternate ease-in-out;
     }
 
     @keyframes flicker {
-      from { transform:translateX(-50%) scale(.94) rotate(-3deg); opacity:.86; }
-      to { transform:translateX(-50%) scale(1.06) rotate(3deg); opacity:1; }
+      from { transform:translateX(-50%) scale(.92) rotate(-3deg); opacity:.86; }
+      to { transform:translateX(-50%) scale(1.07) rotate(3deg); opacity:1; }
     }
 
     .match.selected {
-      transform:translateY(-7px) scale(1.08);
-      filter:drop-shadow(0 0 16px rgba(251,191,36,.72));
+      transform:translateY(-6px) scale(1.09);
+      filter:drop-shadow(0 0 17px rgba(251,191,36,.80));
+    }
+
+    .match.burning {
+      animation:burnAway .68s ease forwards;
+      pointer-events:none;
+    }
+
+    .match.burning::after {
+      animation:flare .25s ease-in-out infinite alternate;
+      width:calc(100% + 32px);
+      height:68px;
+      top:-66px;
+      filter:drop-shadow(0 0 22px rgba(249,115,22,.95));
+    }
+
+    @keyframes flare {
+      from { transform:translateX(-50%) scale(1.05) rotate(-5deg); }
+      to { transform:translateX(-50%) scale(1.35) rotate(6deg); }
+    }
+
+    @keyframes burnAway {
+      0% { transform:translateY(-6px) scale(1.08); opacity:1; filter:brightness(1.15) drop-shadow(0 0 20px rgba(249,115,22,.9)); }
+      45% { transform:translateY(-4px) scale(.96) rotate(-3deg); background:linear-gradient(90deg,#111827,#4b5563,#020617); opacity:.94; }
+      100% { transform:translateY(16px) scale(.40) rotate(8deg); background:#020617; opacity:0; filter:blur(1px); }
     }
 
     .ash {
-      width:38px;
-      height:20px;
+      width:clamp(25px,6.8vw,40px);
+      height:clamp(14px,3.7vw,21px);
       border-radius:50%;
-      background:radial-gradient(circle at 45% 28%,#475569,#020617 72%);
-      box-shadow:0 0 10px rgba(148,163,184,.20);
       position:relative;
-      margin-bottom:1px;
+      margin-bottom:2px;
+      background:radial-gradient(circle at 45% 28%,#64748b,#020617 72%);
+      box-shadow:0 0 10px rgba(148,163,184,.20);
+      animation:ashPop .34s ease both;
     }
 
     .ash::after {
       content:"";
       position:absolute;
-      left:5px;
-      right:5px;
+      left:3px;
+      right:3px;
       bottom:-6px;
       height:9px;
+      opacity:.45;
       background:radial-gradient(circle,#cbd5e1 0 14%,transparent 15%);
-      background-size:10px 8px;
-      opacity:.42;
+      background-size:9px 7px;
+    }
+
+    @keyframes ashPop {
+      from { transform:scale(.35) translateY(-12px); opacity:0; }
+      to { transform:scale(1) translateY(0); opacity:1; }
     }
 
     .bottom-bar {
       position:fixed;
-      left:10px;
-      right:10px;
-      bottom:calc(10px + var(--safe-bottom));
+      left:50%;
+      transform:translateX(-50%);
+      width:min(calc(100vw - 20px),740px);
+      bottom:calc(8px + var(--safe-bottom));
       z-index:20;
       border:1px solid var(--line);
-      border-radius:28px;
-      padding:12px;
+      border-radius:26px;
+      padding:10px;
       background:linear-gradient(180deg,rgba(39,36,55,.96),rgba(18,16,28,.96));
       box-shadow:0 -16px 56px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.08);
     }
 
-    .action-title { font-size:22px; font-weight:950; line-height:1.1; }
-    .action-sub { margin-top:5px; color:var(--muted); font-size:15px; line-height:1.3; }
+    .action-title {
+      font-size:clamp(20px,5.4vw,32px);
+      font-weight:950;
+      line-height:1.08;
+    }
+
+    .action-sub {
+      margin-top:4px;
+      color:var(--muted);
+      font-size:clamp(14px,3.7vw,21px);
+      line-height:1.28;
+    }
 
     .action-buttons {
-      margin-top:12px;
+      margin-top:10px;
       display:grid;
       grid-template-columns:1fr 1.15fr;
       gap:10px;
     }
 
     .bar-btn {
-      min-height:56px;
+      min-height:clamp(48px,12.5vw,66px);
       border:1px solid rgba(255,255,255,.13);
-      border-radius:20px;
-      color:#fff;
+      border-radius:19px;
+      color:white;
       background:rgba(255,255,255,.08);
       font-weight:950;
-      font-size:20px;
+      font-size:clamp(18px,4.8vw,28px);
       cursor:pointer;
+      touch-action:manipulation;
     }
 
     .bar-btn.primary {
@@ -267,7 +357,7 @@
     }
 
     .bar-btn:disabled {
-      opacity:.42;
+      opacity:.38;
       cursor:not-allowed;
       filter:saturate(.45);
     }
@@ -362,6 +452,7 @@
       font-size:24px;
       font-weight:950;
       cursor:pointer;
+      touch-action:manipulation;
     }
 
     .mode-choice small {
@@ -388,6 +479,7 @@
       font-size:22px;
       font-weight:950;
       cursor:pointer;
+      touch-action:manipulation;
     }
 
     .hint {
@@ -479,7 +571,7 @@
       z-index:80;
       max-width:calc(100vw - 30px);
       color:white;
-      background:rgba(15,23,42,.92);
+      background:rgba(15,23,42,.94);
       border:1px solid rgba(255,255,255,.13);
       border-radius:999px;
       padding:10px 16px;
@@ -491,119 +583,128 @@
     .toast.show { transform:translateX(-50%) translateY(0); }
 
     @media (max-height:760px) {
-      .brand-title { font-size:24px; }
+      :root { --bottom-h:122px; --top-h:78px; }
+      .app { gap:7px; }
       .topbar { border-radius:24px; padding:8px; }
-      .counter,.icon-btn { width:58px; height:58px; min-width:58px; min-height:58px; font-size:28px; border-radius:20px; }
-      .row-card { border-radius:22px; padding-top:28px; }
-      .match { height:64px; width:23px; }
-      .slot { height:78px; width:34px; }
-      .match::after { width:28px; height:46px; top:-50px; }
-      .bottom-bar { padding:10px; border-radius:24px; }
-      .action-title { font-size:19px; }
+      .row-card { border-radius:20px; padding:7px 9px 6px; }
+      .row-head { min-height:21px; }
+      .slots { gap:clamp(6px,2vw,12px); padding-top:6px; }
+      .bottom-bar { border-radius:23px; }
       .action-sub { font-size:13px; }
-      .bar-btn { min-height:50px; font-size:18px; }
+    }
+
+    @media (max-height:680px) {
+      :root { --bottom-h:108px; --top-h:66px; }
+      .brand-sub { display:none; }
+      .counter,.icon-btn { width:54px; height:54px; min-width:54px; min-height:54px; border-radius:18px; }
+      .row-title { font-size:12px; }
+      .row-count { font-size:12px; padding:4px 8px; }
+      .action-sub { display:none; }
+      .bar-btn { min-height:44px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="toast" id="toast"></div>
+  <div class="phone">
+    <div class="toast" id="toast"></div>
 
-  <main class="app">
-    <header class="topbar">
-      <div>
-        <div class="brand-title">🔥 NimFire</div>
-        <div class="brand-sub" id="subtitle">Il tuo turno</div>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <div class="brand-title">🔥 NimFire</div>
+          <div class="brand-sub" id="subtitle">Il tuo turno</div>
+        </div>
+        <div class="counter" id="total">16</div>
+        <button class="icon-btn" id="newBtn" type="button">↻</button>
+        <button class="icon-btn" id="menuBtn" type="button">☰</button>
+      </header>
+
+      <section class="board" id="board"></section>
+    </main>
+
+    <section class="bottom-bar">
+      <div class="action-title" id="actionTitle">Tocca a te</div>
+      <div class="action-sub" id="actionSub">Seleziona uno o più cerini contigui.</div>
+      <div class="action-buttons">
+        <button class="bar-btn" id="cancelBtn" type="button">Annulla</button>
+        <button class="bar-btn primary" id="burnBtn" type="button">🔥 Brucia</button>
       </div>
-      <div class="counter" id="total">16</div>
-      <button class="icon-btn" id="newBtn" type="button">↻</button>
-      <button class="icon-btn" id="menuBtn" type="button">☰</button>
-    </header>
+    </section>
 
-    <section class="board" id="board"></section>
-  </main>
+    <div class="sheet-backdrop" id="menuBackdrop">
+      <section class="sheet">
+        <div class="sheet-head">
+          <div class="sheet-title">Menu</div>
+          <button class="sheet-close" id="closeMenuBtn" type="button">×</button>
+        </div>
 
-  <section class="bottom-bar">
-    <div class="action-title" id="actionTitle">Tocca a te</div>
-    <div class="action-sub" id="actionSub">Seleziona uno o più cerini contigui.</div>
-    <div class="action-buttons">
-      <button class="bar-btn" id="cancelBtn" type="button">Annulla</button>
-      <button class="bar-btn primary" id="burnBtn" type="button">🔥 Brucia</button>
+        <div class="sheet-section">
+          <label class="field-label" for="langSelect">Lingua</label>
+          <select class="select-control" id="langSelect">
+            <option value="it">Italiano</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="sheet-section" id="difficultySection">
+          <label class="field-label" for="difficultySelect">Difficoltà CPU</label>
+          <select class="select-control" id="difficultySelect">
+            <option value="easy">Facile</option>
+            <option value="medium" selected>Medio</option>
+            <option value="hard">Difficile</option>
+          </select>
+        </div>
+
+        <div class="sheet-section">
+          <button class="mode-choice active" type="button" data-mode="cpu" id="cpuModeBtn">
+            Solo vs CPU
+            <small>Giochi contro una CPU.</small>
+          </button>
+          <button class="mode-choice" type="button" data-mode="local" id="localModeBtn">
+            2 giocatori locale
+            <small>Mimmo contro Lorenzo sullo stesso telefono.</small>
+          </button>
+          <button class="confirm-btn" id="startModeBtn" type="button">Avvia Solo vs CPU</button>
+          <div class="hint" id="startHint">Scegli una modalità e avvia una nuova partita.</div>
+        </div>
+
+        <div class="sheet-section">
+          <div class="toggle-line">
+            <div><strong>Vibrazione</strong><br>Feedback tattile durante selezione e bruciatura.</div>
+            <button class="switch on" id="vibeSwitch" type="button"><span></span></button>
+          </div>
+        </div>
+
+        <div class="sheet-section">
+          <div class="toggle-line">
+            <div><strong>Suoni</strong><br>Piccoli effetti audio per selezione, fuoco e risultato finale.</div>
+            <button class="switch on" id="soundSwitch" type="button"><span></span></button>
+          </div>
+        </div>
+
+        <div class="sheet-section">
+          <ul class="rules">
+            <li>Puoi eliminare uno o più cerini contigui.</li>
+            <li>Se bruci nel mezzo, il buco resta visibile.</li>
+            <li>Non puoi selezionare oltre un buco già presente.</li>
+            <li>Chi inizia viene scelto casualmente.</li>
+            <li>Chi prende l’ultimo cerino perde.</li>
+          </ul>
+        </div>
+      </section>
     </div>
-  </section>
 
-  <div class="sheet-backdrop" id="menuBackdrop">
-    <section class="sheet">
-      <div class="sheet-head">
-        <div class="sheet-title">Menu</div>
-        <button class="sheet-close" id="closeMenuBtn" type="button">×</button>
-      </div>
-
-      <div class="sheet-section">
-        <label class="field-label" for="langSelect">Lingua</label>
-        <select class="select-control" id="langSelect">
-          <option value="it">Italiano</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-
-      <div class="sheet-section" id="difficultySection">
-        <label class="field-label" for="difficultySelect">Difficoltà CPU</label>
-        <select class="select-control" id="difficultySelect">
-          <option value="easy">Facile</option>
-          <option value="medium" selected>Medio</option>
-          <option value="hard">Difficile</option>
-        </select>
-      </div>
-
-      <div class="sheet-section">
-        <button class="mode-choice active" type="button" data-mode="cpu" id="cpuModeBtn">
-          Solo vs CPU
-          <small>Giochi contro una CPU.</small>
-        </button>
-        <button class="mode-choice" type="button" data-mode="local" id="localModeBtn">
-          2 giocatori locale
-          <small>Mimmo contro Lorenzo sullo stesso telefono.</small>
-        </button>
-        <button class="confirm-btn" id="startModeBtn" type="button">Avvia Solo vs CPU</button>
-        <div class="hint" id="startHint">Scegli una modalità e avvia una nuova partita.</div>
-      </div>
-
-      <div class="sheet-section">
-        <div class="toggle-line">
-          <div><strong>Vibrazione</strong><br>Feedback tattile durante selezione e bruciatura.</div>
-          <button class="switch on" id="vibeSwitch" type="button"><span></span></button>
-        </div>
-      </div>
-
-      <div class="sheet-section">
-        <div class="toggle-line">
-          <div><strong>Suoni</strong><br>Piccoli effetti audio per selezione, fuoco e risultato finale.</div>
-          <button class="switch on" id="soundSwitch" type="button"><span></span></button>
-        </div>
-      </div>
-
-      <div class="sheet-section">
-        <ul class="rules">
-          <li>Puoi eliminare uno o più cerini contigui.</li>
-          <li>Se bruci nel mezzo, il buco resta visibile.</li>
-          <li>Non puoi selezionare oltre un buco già presente.</li>
-          <li>Chi inizia viene scelto casualmente.</li>
-          <li>Chi prende l’ultimo cerino perde.</li>
-        </ul>
-      </div>
-    </section>
-  </div>
-
-  <div class="result-backdrop" id="resultBackdrop">
-    <section class="result-card">
-      <img class="winner-photo" id="winnerPhoto" alt="" />
-      <div class="result-emoji" id="resultEmoji">🏆</div>
-      <div class="result-title" id="resultTitle">Hai vinto!</div>
-      <div class="result-text" id="resultText">La CPU ha preso l’ultimo cerino.</div>
-      <button class="bar-btn primary" id="resultNewBtn" type="button" style="width:100%;margin-bottom:10px;">↻ Nuova partita</button>
-      <button class="bar-btn" id="resultMenuBtn" type="button" style="width:100%;">Menu</button>
-    </section>
+    <div class="result-backdrop" id="resultBackdrop">
+      <section class="result-card">
+        <img class="winner-photo" id="winnerPhoto" alt="" />
+        <div class="result-emoji" id="resultEmoji">🏆</div>
+        <div class="result-title" id="resultTitle">Hai vinto!</div>
+        <div class="result-text" id="resultText">La CPU ha preso l’ultimo cerino.</div>
+        <button class="bar-btn primary" id="resultNewBtn" type="button" style="width:100%;margin-bottom:10px;">↻ Nuova partita</button>
+        <button class="bar-btn" id="resultMenuBtn" type="button" style="width:100%;">Menu</button>
+      </section>
+    </div>
   </div>
 
 <script>
@@ -648,12 +749,13 @@
   const toastEl = $("toast");
 
   const state = {
-    mode: "cpu",          // "cpu" | "local"
+    mode: "cpu",
     pendingMode: "cpu",
     rows: [],
     turn: "player1",
     selection: null,
     burning: false,
+    burningCells: new Set(),
     winner: null,
     resultShown: false,
     cpuTimer: null,
@@ -667,6 +769,10 @@
     return INITIAL_COUNTS.map(n => Array.from({length:n}, () => true));
   }
 
+  function cloneRows(rows) {
+    return rows.map(r => r.slice());
+  }
+
   function other(player) {
     return player === "player1" ? "player2" : "player1";
   }
@@ -675,8 +781,8 @@
     return Math.random() < 0.5 ? "player1" : "player2";
   }
 
-  function totalAlive() {
-    return state.rows.flat().filter(Boolean).length;
+  function totalAlive(rows = state.rows) {
+    return rows.flat().filter(Boolean).length;
   }
 
   function aliveCount(row) {
@@ -724,7 +830,7 @@
   }
 
   function burnSound(amount) {
-    beep(120,.11,"sawtooth",.018);
+    beep(120,.12,"sawtooth",.018);
     const ctx = audio();
     if (!ctx) return;
     const now = ctx.currentTime;
@@ -761,6 +867,7 @@
     state.turn = randomTurn();
     state.selection = null;
     state.burning = false;
+    state.burningCells = new Set();
     state.winner = null;
     state.resultShown = false;
     closeResult();
@@ -769,11 +876,11 @@
     showToast(state.mode === "local" ? "Mimmo vs Lorenzo avviato." : "Solo vs CPU avviato.");
 
     if (state.mode === "cpu" && state.turn === "player2") {
-      state.cpuTimer = setTimeout(cpuMove, 700);
+      state.cpuTimer = setTimeout(cpuMove, 650);
     }
   }
 
-  function canInteract() {
+  function canHumanInteract() {
     if (state.winner || state.burning) return false;
     if (state.mode === "cpu" && state.turn === "player2") return false;
     return true;
@@ -786,11 +893,10 @@
   }
 
   function selectSlot(rowIndex, slotIndex) {
-    if (!canInteract()) return;
+    if (!canHumanInteract()) return;
     if (!state.rows[rowIndex][slotIndex]) return;
 
     const sel = state.selection;
-
     if (!sel || sel.rowIndex !== rowIndex || (sel.start !== sel.end && slotIndex >= sel.start && slotIndex <= sel.end)) {
       state.selection = { rowIndex, anchor:slotIndex, start:slotIndex, end:slotIndex };
     } else {
@@ -813,41 +919,60 @@
     return state.selection.end - state.selection.start + 1;
   }
 
-  function burnSelection() {
-    if (!canInteract() || !state.selection) return;
-
-    const sel = {...state.selection};
-    const amount = selectionAmount();
-    const actor = state.turn;
-    state.burning = true;
-    render();
-    vibrate(35);
-    burnSound(amount);
-
-    setTimeout(() => {
-      for (let i=sel.start;i<=sel.end;i++) state.rows[sel.rowIndex][i] = false;
-
-      state.selection = null;
-      state.burning = false;
-
-      if (totalAlive() === 0) {
-        state.winner = other(actor);
-      } else {
-        state.turn = other(actor);
-      }
-
-      render();
-
-      if (state.winner) showResult();
-      else if (state.mode === "cpu" && state.turn === "player2") {
-        state.cpuTimer = setTimeout(cpuMove, 750);
-      }
-    }, 620);
+  function makeMoveFromSelection() {
+    if (!state.selection) return null;
+    return {
+      rowIndex: state.selection.rowIndex,
+      start: state.selection.start,
+      end: state.selection.end,
+      amount: state.selection.end - state.selection.start + 1
+    };
   }
 
-  function legalMoves() {
+  function applyMove(move, actor) {
+    for (let i=move.start;i<=move.end;i++) state.rows[move.rowIndex][i] = false;
+
+    state.selection = null;
+    state.burning = false;
+    state.burningCells = new Set();
+
+    if (totalAlive() === 0) {
+      state.winner = other(actor);
+    } else {
+      state.turn = other(actor);
+    }
+
+    render();
+
+    if (state.winner) {
+      showResult();
+    } else if (state.mode === "cpu" && state.turn === "player2") {
+      state.cpuTimer = setTimeout(cpuMove, 650);
+    }
+  }
+
+  function animateAndApplyMove(move, actor) {
+    state.selection = { rowIndex:move.rowIndex, anchor:move.start, start:move.start, end:move.end };
+    state.burningCells = new Set();
+    for (let i=move.start;i<=move.end;i++) state.burningCells.add(move.rowIndex + ":" + i);
+    state.burning = true;
+    render();
+    vibrate(actor === "player1" ? 35 : 18);
+    burnSound(move.amount);
+
+    setTimeout(() => applyMove(move, actor), 720);
+  }
+
+  function burnSelection() {
+    if (!canHumanInteract()) return;
+    const move = makeMoveFromSelection();
+    if (!move) return;
+    animateAndApplyMove(move, state.turn);
+  }
+
+  function legalMoves(rows = state.rows) {
     const moves = [];
-    state.rows.forEach((row,rowIndex) => {
+    rows.forEach((row,rowIndex) => {
       let i=0;
       while(i<row.length) {
         if(!row[i]) { i++; continue; }
@@ -862,26 +987,48 @@
     return moves;
   }
 
-  function cpuMove() {
-    if (state.mode !== "cpu" || state.turn !== "player2" || state.winner) return;
+  function applyMoveToRows(rows, move) {
+    const copy = cloneRows(rows);
+    for (let i=move.start;i<=move.end;i++) copy[move.rowIndex][i] = false;
+    return copy;
+  }
 
+  function cpuChooseMove() {
     const moves = legalMoves();
-    if (!moves.length) return;
+    if (!moves.length) return null;
 
-    let safe = moves.filter(m => totalAlive() - m.amount > 0);
+    const safe = moves.filter(m => totalAlive() - m.amount > 0);
     let pool = safe.length ? safe : moves;
 
-    if (state.difficulty === "hard") {
-      pool = pool.slice().sort((a,b) => b.amount-a.amount).slice(0, Math.min(4,pool.length));
-    } else if (state.difficulty === "easy") {
-      pool = pool.filter(m => m.amount === 1).length ? pool.filter(m => m.amount === 1) : pool;
+    if (state.difficulty === "easy") {
+      const singles = pool.filter(m => m.amount === 1);
+      if (singles.length && Math.random() < .75) pool = singles;
     }
 
-    const move = pool[Math.floor(Math.random()*pool.length)];
-    state.selection = { rowIndex:move.rowIndex, anchor:move.start, start:move.start, end:move.end };
-    render();
+    if (state.difficulty === "medium") {
+      const maxSafe = Math.max(...pool.map(m => m.amount));
+      const candidates = pool.filter(m => m.amount >= Math.max(1, maxSafe - 1));
+      if (candidates.length && Math.random() < .55) pool = candidates;
+    }
 
-    setTimeout(() => burnSelection(), 620);
+    if (state.difficulty === "hard") {
+      const winning = pool.filter(m => {
+        const next = applyMoveToRows(state.rows, m);
+        return legalMoves(next).some(om => totalAlive(next) - om.amount === 0) === false;
+      });
+      if (winning.length) pool = winning;
+      const max = Math.max(...pool.map(m => m.amount));
+      pool = pool.filter(m => m.amount >= Math.max(1, max - 1));
+    }
+
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+
+  function cpuMove() {
+    if (state.mode !== "cpu" || state.turn !== "player2" || state.winner || state.burning) return;
+    const move = cpuChooseMove();
+    if (!move) return;
+    animateAndApplyMove(move, "player2");
   }
 
   function showResult() {
@@ -970,6 +1117,9 @@
       card.className = "row-card";
       if (state.selection && state.selection.rowIndex === rowIndex) card.classList.add("active");
 
+      const head = document.createElement("div");
+      head.className = "row-head";
+
       const title = document.createElement("div");
       title.className = "row-title";
       title.textContent = "Riga " + (rowIndex+1);
@@ -977,6 +1127,8 @@
       const count = document.createElement("div");
       count.className = "row-count";
       count.textContent = countLabel(aliveCount(row));
+
+      head.append(title,count);
 
       const slots = document.createElement("div");
       slots.className = "slots";
@@ -997,6 +1149,10 @@
             slotIndex <= state.selection.end
           ) btn.classList.add("selected");
 
+          if (state.burningCells && state.burningCells.has(rowIndex + ":" + slotIndex)) {
+            btn.classList.add("burning");
+          }
+
           btn.addEventListener("click", () => selectSlot(rowIndex, slotIndex));
           slot.appendChild(btn);
         } else {
@@ -1008,7 +1164,7 @@
         slots.appendChild(slot);
       });
 
-      card.append(title,count,slots);
+      card.append(head,slots);
       boardEl.appendChild(card);
     });
 
@@ -1016,8 +1172,8 @@
   }
 
   function renderActionBar() {
-    cancelBtn.disabled = !state.selection || !canInteract();
-    burnBtn.disabled = !state.selection || !canInteract();
+    cancelBtn.disabled = !state.selection || !canHumanInteract();
+    burnBtn.disabled = !state.selection || !canHumanInteract();
 
     if (state.winner) {
       actionTitleEl.textContent = "Partita conclusa";
@@ -1029,13 +1185,13 @@
 
     if (state.burning) {
       actionTitleEl.textContent = "🔥 Bruciatura in corso";
-      actionSubEl.textContent = actorName(state.turn) + " sta bruciando " + selectionAmount() + " cerini.";
+      actionSubEl.textContent = actorName(state.turn) + " sta bruciando " + (state.selection ? selectionAmount() : "") + " cerini.";
       cancelBtn.disabled = true;
       burnBtn.disabled = true;
       return;
     }
 
-    if (!canInteract()) {
+    if (!canHumanInteract()) {
       actionTitleEl.textContent = "Turno CPU";
       actionSubEl.textContent = "Attendi la mossa della CPU.";
       cancelBtn.disabled = true;
@@ -1058,7 +1214,6 @@
     cancelBtn.textContent = amount === 1 ? "Reset" : "Annulla";
   }
 
-  // Events
   menuBtn.addEventListener("click", openMenu);
   closeMenuBtn.addEventListener("click", closeMenu);
   menuBackdrop.addEventListener("click", e => { if (e.target === menuBackdrop) closeMenu(); });
@@ -1072,7 +1227,7 @@
   resultMenuBtn.addEventListener("click", () => { closeResult(); openMenu(); });
 
   cancelBtn.addEventListener("click", () => {
-    if (!canInteract()) return;
+    if (!canHumanInteract()) return;
     state.selection = null;
     render();
   });
@@ -1094,7 +1249,6 @@
     if (state.sound) beep(500,.05);
   });
 
-  // Start
   state.rows = freshRows();
   render();
 })();

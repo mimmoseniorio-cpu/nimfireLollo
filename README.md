@@ -1,12 +1,14 @@
-# NimFire Mimmo vs Lorenzo Clean Photos
+# NimFire Mimmo vs Lorenzo Polished
 
-Versione ricostruita con logica pulita e foto incorporate direttamente nell'HTML.
+Versione ricostruita con logica pulita e rifinitura mobile.
 
-Correzioni:
-- Mimmo vs Lorenzo funziona senza CPU
-- foto vincitore incorporate in base64
-- l'HTML singolo mostra le foto anche senza file esterni
-- l'APK include comunque anche i file immagine
+Check eseguiti:
+- sintassi JS
+- flusso CPU separato da flusso giocatore
+- la CPU può completare una mossa senza passare da canHumanInteract
+- modalità locale non attiva mai la CPU
+- foto vincitore incorporate
+- layout con larghezza massima mobile anche in browser desktop
 
 Artifact:
-NimFire-Mimmo-Lorenzo-Clean-debug-apk
+NimFire-Mimmo-Lorenzo-Polished-debug-apk
