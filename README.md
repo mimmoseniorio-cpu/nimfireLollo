@@ -1,9 +1,10 @@
-# NimFire Mimmo vs Lorenzo
+# NimFire Mimmo vs Lorenzo v2
 
-Versione locale personalizzata:
-- in modalità 2 giocatori: Mimmo e Lorenzo
-- se vince Mimmo compare la foto di Mimmo
-- se vince Lorenzo compare la foto di Lorenzo
+Correzioni:
+- aggiunto pulsante "Conferma e inizia" nel menu
+- scegliendo "2 giocatori locale" puoi avviare chiaramente la partita Mimmo vs Lorenzo
+- rimosso effetto sticky del titolo Menu che rimaneva in sovraimpressione
+- mantiene foto vincitore Mimmo/Lorenzo
 
 Artifact:
 NimFire-Mimmo-Lorenzo-debug-apk

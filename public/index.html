@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>NimFire Mimmo vs Lorenzo</title>
+  <title>NimFire Mimmo vs Lorenzo v2</title>
   <meta name="theme-color" content="#080513" />
   <meta name="description" content="NimFire A7: multilingua, CPU migliorata, primo turno evidente e nuova icona." />
   <link rel="manifest" href="manifest.webmanifest" />
@@ -1531,6 +1531,61 @@
       58% { transform: translateY(-2px) scale(1.04); opacity: 1; }
       100% { transform: translateY(0) scale(1); opacity: 1; }
     }
+  
+    /* Mimmo/Lorenzo v2 menu fixes */
+    .sheet-backdrop {
+      align-items: flex-start !important;
+      overflow-y: auto !important;
+      padding-top: calc(10px + env(safe-area-inset-top, 0px)) !important;
+      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    .sheet {
+      margin-top: 0 !important;
+      max-height: calc(100dvh - 20px - env(safe-area-inset-top, 0px)) !important;
+      overflow-y: auto !important;
+      overscroll-behavior: contain !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .sheet-head {
+      position: relative !important;
+      top: auto !important;
+      z-index: 1 !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
+    .mode-confirm-box {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .mode-confirm-btn {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 20px;
+      color: white;
+      font: inherit;
+      font-weight: 950;
+      font-size: 18px;
+      background: linear-gradient(135deg, rgba(245,158,11,.95), rgba(239,68,68,.95));
+      box-shadow: 0 14px 34px rgba(239,68,68,.16);
+      cursor: pointer;
+    }
+
+    .mode-confirm-hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      margin: 8px 4px 0;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -1615,6 +1670,11 @@
             <small>Due persone giocano sullo stesso telefono.</small>
           </button>
         </div>
+
+        <div class="mode-confirm-box">
+          <button class="mode-confirm-btn" id="confirmModeBtn">Conferma e inizia</button>
+          <div class="mode-confirm-hint" id="confirmModeHint">Scegli una modalità e avvia una nuova partita.</div>
+        </div>
       </div>
 
       <div class="sheet-section">
@@ -1681,6 +1741,7 @@
     const state = {
       rows: cloneRows(INITIAL_ROWS),
       mode: "cpu",
+      pendingMode: "cpu",
       turn: Math.random() < 0.5 ? "player1" : "player2",
       winner: null,
       selection: null,
@@ -1712,6 +1773,8 @@
     const menuBackdropEl = document.getElementById("menuBackdrop");
     const newGameFromMenuBtnEl = document.getElementById("newGameFromMenuBtn");
     const modeChoices = [...document.querySelectorAll(".mode-choice")];
+    const confirmModeBtnEl = document.getElementById("confirmModeBtn");
+    const confirmModeHintEl = document.getElementById("confirmModeHint");
     const languageSelectEl = document.getElementById("languageSelect");
     const difficultySelectEl = document.getElementById("difficultySelect");
     const difficultySectionEl = document.getElementById("difficultySection");
@@ -2451,6 +2514,28 @@
       maybeRunCpuOpeningTurn();
     }
 
+
+    function setPendingMode(mode) {
+      state.pendingMode = mode;
+      modeChoices.forEach(choice => choice.classList.toggle("active", choice.dataset.mode === mode));
+      if (confirmModeBtnEl) {
+        if (mode === "local") confirmModeBtnEl.textContent = "Avvia Mimmo vs Lorenzo";
+        else if (mode === "cpu") confirmModeBtnEl.textContent = "Avvia Solo vs CPU";
+        else confirmModeBtnEl.textContent = "Conferma e inizia";
+      }
+      if (confirmModeHintEl) {
+        confirmModeHintEl.textContent = mode === "local"
+          ? "Partita locale: Mimmo contro Lorenzo sullo stesso telefono."
+          : "Partita contro la CPU.";
+      }
+    }
+
+    function confirmSelectedMode() {
+      const mode = state.pendingMode || state.mode || "cpu";
+      switchMode(mode);
+      closeMenu();
+    }
+
     function switchMode(mode) {
       state.mode = mode;
       modeChoices.forEach(choice => choice.classList.toggle("active", choice.dataset.mode === mode));
@@ -2661,7 +2746,7 @@
       if (typeof hardNormalizeEnglish === 'function') setTimeout(hardNormalizeEnglish, 0);
     }
 
-    menuBtnEl.addEventListener("click", () => { if (typeof patchMenuLanguage === "function") patchMenuLanguage(); menuBackdropEl.classList.add("show"); });
+    menuBtnEl.addEventListener("click", () => { state.pendingMode = state.mode; setPendingMode(state.pendingMode); if (typeof patchMenuLanguage === "function") patchMenuLanguage(); menuBackdropEl.classList.add("show"); });
     topNewGameBtnEl.addEventListener("click", () => {
       resetGame();
       showToast(t("newGameToast"));
@@ -2680,6 +2765,8 @@
 
     if(languageSelectEl){languageSelectEl.addEventListener("change",()=>{state.langSetting=languageSelectEl.value;localStorage.setItem("nimfire:lang",state.langSetting);applyLanguage(); if (typeof patchMenuLanguage === "function") patchMenuLanguage(); render();});}
     if(difficultySelectEl){difficultySelectEl.value=state.difficulty;difficultySelectEl.addEventListener("change",()=>{state.difficulty=difficultySelectEl.value;localStorage.setItem("nimfire:difficulty",state.difficulty);showToast(t("difficultyLabel")+": "+t(state.difficulty));});}
+    if (confirmModeBtnEl) confirmModeBtnEl.addEventListener("click", confirmSelectedMode);
+
     vibrationSwitchEl.addEventListener("click", () => {
       state.vibration = !state.vibration;
       vibrationSwitchEl.classList.toggle("on", state.vibration);
